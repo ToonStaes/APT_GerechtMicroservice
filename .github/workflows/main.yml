@@ -29,6 +29,12 @@ jobs:
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Show contents of the current working directory
+        run: ls -la
+        
+      - name: Show contents of the target directory
+        run: ls -la target
+      
       - name: Docker Build
         run: docker build -t ${{ secrets.DOCKER_USER }}/gerecht-service:latest .
 
