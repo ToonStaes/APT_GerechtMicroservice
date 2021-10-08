@@ -30,7 +30,9 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/gerecht-service:latest .
+        run: 
+          cd app
+          docker build -t ${{ secrets.DOCKER_USER }}/gerecht-service:latest .
 
       - name: Upload container to Docker Hub with Push
         run: docker push ${{ secrets.DOCKER_USER }}/gerecht-service:latest
