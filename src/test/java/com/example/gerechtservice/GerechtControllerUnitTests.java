@@ -3,49 +3,41 @@ package com.example.gerechtservice;
 import com.example.gerechtservice.model.Gerecht;
 import com.example.gerechtservice.repository.GerechtRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GerechtControllerIntegrationTests {
+public class GerechtControllerUnitTests {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private GerechtRepository gerechtRepository;
-
-    private Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
-    private Gerecht gerecht2 = new Gerecht("Pizza Hawaï", 99.99);
-    private Gerecht gerecht3 = new Gerecht("Pizza Salami", 11.00);
-
-    @BeforeEach
-    public void beforeAllTests() {
-        gerechtRepository.deleteAll();
-        gerechtRepository.save(gerecht1);
-        gerechtRepository.save(gerecht2);
-        gerechtRepository.save(gerecht3);
-    }
-
-    @AfterEach
-    public void afterAllTests() {
-        gerechtRepository.deleteAll();
-    }
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception {
+    public void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception{
+        Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
+
+        given(gerechtRepository.findGerechtByNaam("Pizza Margherita")).willReturn(gerecht1);
+
         mockMvc.perform(get("/gerechten/{naam}", "Pizza Margherita"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -53,8 +45,20 @@ public class GerechtControllerIntegrationTests {
                 .andExpect(jsonPath("$.prijs", is(9.50)));
     }
 
+
     @Test
     public void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
+        Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
+        Gerecht gerecht2 = new Gerecht("Pizza Hawaï", 99.99);
+        Gerecht gerecht3 = new Gerecht("Pizza Salami", 11.00);
+
+        List<Gerecht> gerechtList = new ArrayList<>();
+        gerechtList.add(gerecht1);
+        gerechtList.add(gerecht2);
+        gerechtList.add(gerecht3);
+
+        given(gerechtRepository.findAll()).willReturn(gerechtList);
+
         mockMvc.perform(get("/gerechten"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
