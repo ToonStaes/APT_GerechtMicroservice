@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GerechtControllerIntegrationTests {
+class GerechtControllerIntegrationTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,7 +45,7 @@ public class GerechtControllerIntegrationTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception {
+    void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception {
         mockMvc.perform(get("/gerechten/{naam}", "Pizza Margherita"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -54,7 +54,7 @@ public class GerechtControllerIntegrationTests {
     }
 
     @Test
-    public void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
+    void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
         mockMvc.perform(get("/gerechten"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

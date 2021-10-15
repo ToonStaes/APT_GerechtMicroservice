@@ -32,7 +32,5 @@ public class GerechtController {
             gerechtRepository.save(new Gerecht("Pizza Hawaï", 99.99));
             gerechtRepository.save(new Gerecht("Pizza Salami", 11.00));
         }
-
-        System.out.println("Gerecht test: " + gerechtRepository.findAll().size());
     }
 }
