@@ -11,4 +11,8 @@ class GerechtserviceApplicationTests {
 
     }
 
+    @Test
+    public void applicationContextTest() {
+        GerechtserviceApplication.main(new String[] {});
+    }
 }
