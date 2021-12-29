@@ -15,9 +15,9 @@ public class GerechtController {
     @Autowired
     private GerechtRepository gerechtRepository;
 
-    @GetMapping("/gerechten/{naam}")
-    public Gerecht getGerechtenByNaam(@PathVariable String naam){
-        return gerechtRepository.findGerechtByNaam(naam);
+    @GetMapping("/gerechten/{gerechtnummer}")
+    public Gerecht getGerechtenByNaam(@PathVariable String gerechtnummer){
+        return gerechtRepository.findGerechtByGerechtNummer(gerechtnummer);
     }
 
     @GetMapping("/gerechten")
@@ -32,7 +32,5 @@ public class GerechtController {
             gerechtRepository.save(new Gerecht("Pizza Hawaï", 99.99));
             gerechtRepository.save(new Gerecht("Pizza Salami", 11.00));
         }
-
-        System.out.println("Gerecht test: " + gerechtRepository.findAll().size());
     }
 }

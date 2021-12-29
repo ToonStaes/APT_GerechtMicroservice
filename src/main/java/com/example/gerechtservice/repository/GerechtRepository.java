@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GerechtRepository extends MongoRepository<Gerecht, String> {
-    Gerecht findGerechtByNaam(String naam);
+    Gerecht findGerechtByGerechtNummer(String gerechtnummer);
 }
