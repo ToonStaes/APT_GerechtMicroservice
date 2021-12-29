@@ -16,7 +16,7 @@ public class GerechtController {
     private GerechtRepository gerechtRepository;
 
     @GetMapping("/gerechten/{gerechtnummer}")
-    public Gerecht getGerechtenByNaam(@PathVariable String gerechtnummer){
+    public Gerecht getGerechtenByGerechtnummer(@PathVariable String gerechtnummer){
         return gerechtRepository.findGerechtByGerechtNummer(gerechtnummer);
     }
 
@@ -27,10 +27,12 @@ public class GerechtController {
 
     @PostConstruct
     public void fillDB(){
+        gerechtRepository.deleteAll();
         if(gerechtRepository.count()==0){
             gerechtRepository.save(new Gerecht("Pizza Margherita", 9.50));
             gerechtRepository.save(new Gerecht("Pizza Hawaï", 99.99));
             gerechtRepository.save(new Gerecht("Pizza Salami", 11.00));
+            gerechtRepository.save(new Gerecht("test", 25.00));
         }
     }
 }

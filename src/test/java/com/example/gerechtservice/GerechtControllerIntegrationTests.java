@@ -10,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -17,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GerechtControllerIntegrationTests {
+class GerechtControllerIntegrationTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,9 +47,17 @@ public class GerechtControllerIntegrationTests {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    private String genereerDatestringVandaag(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
     @Test
-    public void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception {
-        mockMvc.perform(get("/gerechten/{naam}", "Pizza Margherita"))
+    void givenGerecht_whenGetGerechtByGerechtnummer_thenReturnJsonGerecht() throws Exception {
+        String datestring = genereerDatestringVandaag();
+        String pizza = datestring + "PM";
+        mockMvc.perform(get("/gerechten/{gerechtnummer}", pizza))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.naam", is("Pizza Margherita")))
@@ -54,7 +65,7 @@ public class GerechtControllerIntegrationTests {
     }
 
     @Test
-    public void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
+    void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
         mockMvc.perform(get("/gerechten"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

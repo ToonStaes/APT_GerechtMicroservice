@@ -10,28 +10,28 @@ import java.util.Date;
 @Document(collection = "gerechten")
 public class Gerecht {
     @Id
-    private String id;
+    private String _id;
     @Indexed(unique=true)
     private String gerechtNummer;
     private String naam;
     private double prijs;
 
-    public Gerecht(String naam, double prijs) {
-        this.naam = naam;
-        this.prijs = prijs;
-        this.gerechtNummer = generateGerechtnummer(naam);
+    public String getGerechtNummer() {
+        return gerechtNummer;
     }
 
-    public String getId() {
-        return id;
+    public double getPrijs() {
+        return prijs;
     }
 
     public String getNaam() {
         return naam;
     }
 
-    public double getPrijs() {
-        return prijs;
+    public Gerecht(String naam, double prijs) {
+        this.naam = naam;
+        this.prijs = prijs;
+        this.gerechtNummer = generateGerechtnummer(naam);
     }
 
     public String generateGerechtnummer(String gerechtNaam) {

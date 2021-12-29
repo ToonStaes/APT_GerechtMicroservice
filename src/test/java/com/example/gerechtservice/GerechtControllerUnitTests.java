@@ -11,7 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -30,15 +32,23 @@ public class GerechtControllerUnitTests {
     @MockBean
     private GerechtRepository gerechtRepository;
 
+    private String genereerDatestringVandaag(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenGerecht_whenGetGerechtByNaam_thenReturnJsonGerecht() throws Exception{
+    public void givenGerecht_whenGetGerechtByGerechtnummer_thenReturnJsonGerecht() throws Exception{
         Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
 
-        given(gerechtRepository.findGerechtByNaam("Pizza Margherita")).willReturn(gerecht1);
+        String gerechtnummer = genereerDatestringVandaag() + "PM";
 
-        mockMvc.perform(get("/gerechten/{naam}", "Pizza Margherita"))
+        given(gerechtRepository.findGerechtByGerechtNummer(gerechtnummer)).willReturn(gerecht1);
+
+        mockMvc.perform(get("/gerechten/{gerechtnummer}", gerechtnummer))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.naam", is("Pizza Margherita")))
