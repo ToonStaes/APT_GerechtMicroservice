@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GerechtControllerUnitTests {
+class GerechtControllerUnitTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,7 +41,7 @@ public class GerechtControllerUnitTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenGerecht_whenGetGerechtByGerechtnummer_thenReturnJsonGerecht() throws Exception{
+    void givenGerecht_whenGetGerechtByGerechtnummer_thenReturnJsonGerecht() throws Exception{
         Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
 
         String gerechtnummer = genereerDatestringVandaag() + "PM";
@@ -57,7 +57,7 @@ public class GerechtControllerUnitTests {
 
 
     @Test
-    public void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
+    void givenGerechten_whenGetGerechten_thenReturnJsonGerechten() throws Exception{
         Gerecht gerecht1 = new Gerecht("Pizza Margherita", 9.50);
         Gerecht gerecht2 = new Gerecht("Pizza Hawaï", 99.99);
         Gerecht gerecht3 = new Gerecht("Pizza Salami", 11.00);

@@ -10,7 +10,7 @@ import java.util.Date;
 @Document(collection = "gerechten")
 public class Gerecht {
     @Id
-    private String _id;
+    private String id;
     @Indexed(unique=true)
     private String gerechtNummer;
     private String naam;
@@ -35,20 +35,22 @@ public class Gerecht {
     }
 
     public String generateGerechtnummer(String gerechtNaam) {
-        String initialen = "";
+        StringBuilder initialen = new StringBuilder();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date date = new Date();
-        String datestring = formatter.format(date).toString();
+        String datestring = formatter.format(date);
 
         String[] splitted = gerechtNaam.split("\\s+");
 
-        initialen += datestring;
+        initialen.append(datestring) ;
 
         for (String s : splitted) {
-            initialen += s.toUpperCase().charAt(0);
+            initialen.append(s.toUpperCase().charAt(0));
         }
 
-        return initialen;
+        String gerechtnummer = initialen.toString();
+
+        return gerechtnummer;
     }
 }
