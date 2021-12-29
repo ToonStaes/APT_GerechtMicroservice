@@ -27,7 +27,6 @@ public class GerechtController {
 
     @PostConstruct
     public void fillDB(){
-        gerechtRepository.deleteAll();
         if(gerechtRepository.count()==0){
             gerechtRepository.save(new Gerecht("Pizza Margherita", 9.50));
             gerechtRepository.save(new Gerecht("Pizza Hawaï", 99.99));
