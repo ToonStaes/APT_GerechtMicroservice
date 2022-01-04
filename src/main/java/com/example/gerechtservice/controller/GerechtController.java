@@ -29,13 +29,13 @@ public class GerechtController {
     public void fillDB(){
         if(gerechtRepository.count()==0){
             Gerecht margherita = new Gerecht("Pizza Margherita", 9.50);
-            margherita.setGerechtNummer("20220104PM");
+            margherita.setGerechtNummer("20220103PM");
 
             Gerecht hawaï = new Gerecht("Pizza Hawaï", 99.99);
-            hawaï.setGerechtNummer("20220104PH");
+            hawaï.setGerechtNummer("20200103PH");
 
             Gerecht salami = new Gerecht("Pizza Salami", 11.00);
-            salami.setGerechtNummer("20220104PS");
+            salami.setGerechtNummer("20200103PS");
 
             gerechtRepository.save(margherita);
             gerechtRepository.save(hawaï);
