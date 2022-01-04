@@ -28,10 +28,18 @@ public class GerechtController {
     @PostConstruct
     public void fillDB(){
         if(gerechtRepository.count()==0){
-            gerechtRepository.save(new Gerecht("Pizza Margherita", 9.50));
-            gerechtRepository.save(new Gerecht("Pizza Hawaï", 99.99));
-            gerechtRepository.save(new Gerecht("Pizza Salami", 11.00));
-            gerechtRepository.save(new Gerecht("test", 25.00));
+            Gerecht margherita = new Gerecht("Pizza Margherita", 9.50);
+            margherita.setGerechtNummer("20220104PM");
+
+            Gerecht hawaï = new Gerecht("Pizza Hawaï", 99.99);
+            hawaï.setGerechtNummer("20220104PH");
+
+            Gerecht salami = new Gerecht("Pizza Salami", 11.00);
+            salami.setGerechtNummer("20220104PS");
+
+            gerechtRepository.save(margherita);
+            gerechtRepository.save(hawaï);
+            gerechtRepository.save(salami);
         }
     }
 }

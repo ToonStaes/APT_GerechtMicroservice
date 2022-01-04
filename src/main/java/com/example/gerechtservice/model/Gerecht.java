@@ -34,6 +34,10 @@ public class Gerecht {
         this.gerechtNummer = generateGerechtnummer(naam);
     }
 
+    public void setGerechtNummer(String gerechtNummer) {
+        this.gerechtNummer = gerechtNummer;
+    }
+
     public String generateGerechtnummer(String gerechtNaam) {
         StringBuilder initialen = new StringBuilder();
 
