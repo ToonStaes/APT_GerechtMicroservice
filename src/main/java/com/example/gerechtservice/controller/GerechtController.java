@@ -37,9 +37,21 @@ public class GerechtController {
             Gerecht salami = new Gerecht("Pizza Salami", 11.00);
             salami.setGerechtNummer("20200103PS");
 
+            Gerecht stagione = new Gerecht("Pizza Quattro Stagione", 12.00);
+            margherita.setGerechtNummer("20220103PQS");
+
+            Gerecht formaggi = new Gerecht("Pizza Quattro Formaggi", 12.00);
+            hawaï.setGerechtNummer("20200103PQF");
+
+            Gerecht pepperoni = new Gerecht("Pizza Pepperoni", 11.00);
+            salami.setGerechtNummer("20200103PS");
+
             gerechtRepository.save(margherita);
             gerechtRepository.save(hawaï);
             gerechtRepository.save(salami);
+            gerechtRepository.save(stagione);
+            gerechtRepository.save(formaggi);
+            gerechtRepository.save(pepperoni);
         }
     }
 }
